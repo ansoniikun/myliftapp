@@ -97,7 +97,8 @@ export default function Home() {
     let plateCount = [];
 
     // Loop over the plates starting from the largest plate
-    for (let plate of plates.reverse()) {
+    for (let plate of plates) {
+      // Remove the reverse() here
       if (remainingWeight <= 0) break;
 
       const plateWeight =
