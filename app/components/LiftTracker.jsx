@@ -144,7 +144,7 @@ const FitnessTracker = () => {
   return (
     <div className="p-4">
       <Typography variant="h4" gutterBottom className="text-center">
-        Fitness Tracker
+        Lift Tracker
       </Typography>
 
       {/* Input for New Lift Type */}
@@ -220,7 +220,7 @@ const FitnessTracker = () => {
       {/* Display lifts with progress charts */}
       <Grid container spacing={3}>
         {Object.keys(lifts).map((liftName) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={liftName}>
+          <Grid item xs={12} sm={12} md={12} lg={12} key={liftName}>
             <Card>
               <CardContent>
                 <Typography variant="h6">{liftName}</Typography>

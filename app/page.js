@@ -2,6 +2,7 @@ import Image from "next/image";
 import BMICalculator from "./components/BMICalculator";
 import CalorieTracker from "./components/CalorieTracker";
 import LiftTracker from "./components/LiftTracker";
+import BarbellCalculator from "./components/BarbellCalculator";
 
 export default function Home() {
   return (
@@ -27,6 +28,10 @@ export default function Home() {
           {/* LiftTracker Component */}
           <div className="bg-white p-6 rounded-lg shadow-md">
             <LiftTracker />
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <BarbellCalculator />
           </div>
         </div>
       </div>
