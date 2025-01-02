@@ -119,8 +119,8 @@ export default function Home() {
   const requiredPlates = calculateRequiredPlates();
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+    <div className="min-h-screen flex justify-center p-6 bg-white rounded-lg max-w-lg w-full">
+      <div className="">
         <h1 className="text-2xl font-bold mb-4">Barbell Calculator</h1>
 
         {/* Unit Selection */}

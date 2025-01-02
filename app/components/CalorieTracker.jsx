@@ -69,7 +69,7 @@ const CalorieTracker = () => {
         };
 
   return (
-    <div className="p-4">
+    <div className="flex flex-col items-center justify-center p-4">
       <h2 className="text-2xl font-bold">Calorie Tracker</h2>
 
       {/* Input field for calories */}

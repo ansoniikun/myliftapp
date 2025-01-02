@@ -1,15 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Box,
-  TextField,
-  Grid,
-  MenuItem,
-} from "@mui/material";
 import { Bar } from "react-chartjs-2"; // Using chart.js for the bar chart
 import {
   Chart as ChartJS,
@@ -142,158 +132,155 @@ const FitnessTracker = () => {
   };
 
   return (
-    <div className="p-4">
-      <Typography variant="h4" gutterBottom className="text-center">
-        Lift Tracker
-      </Typography>
+    <div className="flex flex-col items-center justify-center p-4">
+      <h2 className="text-4xl font-bold text-center mb-4">Lift Tracker</h2>
 
       {/* Input for New Lift Type */}
-      <Box sx={{ maxWidth: 400 }} className="mb-4 mx-auto">
-        <TextField
-          label="New Lift Type"
-          variant="outlined"
-          fullWidth
+      <div className="max-w-md mb-4 mx-auto w-full">
+        <label
+          className="block text-lg font-semibold mb-2"
+          htmlFor="newLiftName"
+        >
+          New Lift Type
+        </label>
+        <input
+          type="text"
+          id="newLiftName"
           value={newLiftName}
           onChange={(e) => setNewLiftName(e.target.value)}
-          className="mb-2"
+          className="w-full p-2 border border-gray-300 rounded mb-2"
+          placeholder="Enter new lift type"
         />
-        <Button
-          variant="contained"
-          color="primary"
+        <button
           onClick={handleAddLiftType}
-          fullWidth
+          className="w-full px-4 py-2 bg-blue-500 text-white rounded mt-2"
         >
           Add New Lift Type
-        </Button>
-      </Box>
+        </button>
+      </div>
 
       {/* Form to Add Lift Data for an Existing Lift Type */}
-      <Box sx={{ maxWidth: 400 }} className="mb-4 mx-auto">
+      <div className="max-w-md mb-4 mx-auto w-full">
         {/* Dropdown for selecting lift */}
-        <TextField
-          select
-          label="Select Lift"
-          variant="outlined"
-          fullWidth
+        <label className="block text-lg font-semibold mb-2" htmlFor="liftName">
+          Select Lift
+        </label>
+        <select
+          id="liftName"
           value={liftName}
           onChange={(e) => setLiftName(e.target.value)}
-          className="mb-2"
+          className="w-full p-2 border border-gray-300 rounded mb-2"
         >
-          {/* Dynamically populate the dropdown with lift names */}
+          <option value="">Select a Lift</option>
           {Object.keys(lifts).map((lift) => (
-            <MenuItem key={lift} value={lift}>
+            <option key={lift} value={lift}>
               {lift}
-            </MenuItem>
+            </option>
           ))}
-        </TextField>
+        </select>
 
         {/* Weight and Reps Input */}
-        <TextField
-          label="Weight (kg)"
-          variant="outlined"
+        <label className="block text-lg font-semibold mb-2" htmlFor="weight">
+          Weight (kg)
+        </label>
+        <input
           type="number"
-          fullWidth
+          id="weight"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
-          className="mb-2"
+          className="w-full p-2 border border-gray-300 rounded mb-2"
+          placeholder="Enter weight lifted"
         />
-        <TextField
-          label="Reps"
-          variant="outlined"
+        <label className="block text-lg font-semibold mb-2" htmlFor="reps">
+          Reps
+        </label>
+        <input
           type="number"
-          fullWidth
+          id="reps"
           value={reps}
           onChange={(e) => setReps(e.target.value)}
-          className="mb-4"
+          className="w-full p-2 border border-gray-300 rounded mb-4"
+          placeholder="Enter number of reps"
         />
 
-        <Button
-          variant="contained"
-          color="primary"
+        <button
           onClick={handleAddLift}
-          fullWidth
+          className="w-full px-4 py-2 bg-blue-500 text-white rounded"
         >
           Add Lift
-        </Button>
-      </Box>
+        </button>
+      </div>
 
       {/* Display lifts with progress charts */}
-      <Grid container spacing={3}>
+      <div className="w-full grid grid-cols-1 gap-6">
         {Object.keys(lifts).map((liftName) => (
-          <Grid item xs={12} sm={12} md={12} lg={12} key={liftName}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6">{liftName}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Latest Data: {lifts[liftName][0]?.date || "No Data"}
-                </Typography>
+          <div
+            key={liftName}
+            className="bg-white p-4 rounded-lg shadow-md w-full"
+          >
+            <h3 className="text-xl font-semibold">{liftName}</h3>
+            <p className="text-sm text-gray-500">
+              Latest Data: {lifts[liftName][0]?.date || "No Data"}
+            </p>
 
-                {/* Chart for each lift */}
-                <div
-                  style={{
-                    width: "100%",
-                    height: "300px",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Bar
-                    data={chartData(liftName)}
-                    options={{
-                      responsive: true,
-                      maintainAspectRatio: false,
-                      indexAxis: "x", // Bars will be drawn from left to right
-                      plugins: {
-                        title: {
-                          display: true,
-                          text: `${liftName} Progress`,
-                        },
+            {/* Chart for each lift */}
+            <div
+              style={{
+                width: "100%",
+                height: "300px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Bar
+                data={chartData(liftName)}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  indexAxis: "x", // Bars will be drawn from left to right
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: `${liftName} Progress`,
+                    },
+                  },
+                  scales: {
+                    x: {
+                      title: {
+                        display: true,
+                        text: expandedWeek === null ? "Week" : "Date",
                       },
-                      scales: {
-                        x: {
-                          title: {
-                            display: true,
-                            text: expandedWeek === null ? "Week" : "Date",
-                          },
-                        },
-                        y: {
-                          title: {
-                            display: true,
-                            text: "Weight (kg)",
-                          },
-                          beginAtZero: true,
-                        },
+                    },
+                    y: {
+                      title: {
+                        display: true,
+                        text: "Weight (kg)",
                       },
-                    }}
-                  />
-                </div>
-                {expandedWeek === null && (
-                  <Button
-                    onClick={() => setExpandedWeek(0)}
-                    variant="outlined"
-                    color="primary"
-                    fullWidth
-                    sx={{ marginTop: 2 }}
-                  >
-                    View Daily Progress
-                  </Button>
-                )}
-                {expandedWeek !== null && (
-                  <Button
-                    onClick={() => setExpandedWeek(null)}
-                    variant="outlined"
-                    color="primary"
-                    fullWidth
-                    sx={{ marginTop: 2 }}
-                  >
-                    Collapse to Weekly Progress
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
+                      beginAtZero: true,
+                    },
+                  },
+                }}
+              />
+            </div>
+            {expandedWeek === null && (
+              <button
+                onClick={() => setExpandedWeek(0)}
+                className="w-full px-4 py-2 bg-blue-500 text-white rounded mt-2"
+              >
+                View Daily Progress
+              </button>
+            )}
+            {expandedWeek !== null && (
+              <button
+                onClick={() => setExpandedWeek(null)}
+                className="w-full px-4 py-2 bg-blue-500 text-white rounded mt-2"
+              >
+                Collapse to Weekly Progress
+              </button>
+            )}
+          </div>
         ))}
-      </Grid>
+      </div>
     </div>
   );
 };
